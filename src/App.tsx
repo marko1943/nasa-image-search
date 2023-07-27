@@ -1,9 +1,10 @@
 import classes from './app.module.scss';
+import SearchPage from '@pages/SearchPage';
 
 function App() {
   return (
     <div className={classes.App}>
-      <h1>I'm just a centered header.</h1>
+      <SearchPage />
     </div>
   );
 }
