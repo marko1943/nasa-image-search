@@ -15,5 +15,7 @@ Tested/Created with Node v20.3.0
 ## How to run
 
 `cd vite-react-starter`
+
 `yarn`
+
 `yarn run dev`
