@@ -5,8 +5,7 @@ Empty React starter project.
 - Bundled with Vite. Yarn as a package manager. 
 - Uses CSS modules.
 - TypeScript.
-- ESlint for linting, 
-- Prettier for formatting.
+- ESlint for linting and formatting.
 
 
 Tested/Created with Node v20.3.0

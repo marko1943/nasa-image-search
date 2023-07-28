@@ -1,1 +1,1 @@
-export const API_URL = 'https://images-api.nasa.gov/';
+export const API_URL = "https://images-api.nasa.gov";

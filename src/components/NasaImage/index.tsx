@@ -1,6 +1,6 @@
-import { NasaImageType } from '@/types/NasaImage';
+import { NasaImageType } from "@/types/NasaImage";
 
-import styles from './NasaImage.module.scss';
+import styles from "./NasaImage.module.scss";
 
 const NasaImage = ({ image }: { image: NasaImageType }) => {
   return (

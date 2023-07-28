@@ -7,7 +7,6 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
-    'prettier'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -16,9 +15,8 @@ module.exports = {
     project: true,
     tsconfigRootDir: __dirname
   },
-  plugins: ['react-refresh', '@typescript-eslint', 'prettier'],
+  plugins: ['react-refresh', '@typescript-eslint'],
   rules: {
-    'prettier/prettier': 'warn',
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true }

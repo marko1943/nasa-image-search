@@ -1,55 +1,110 @@
-import styles from './SearchPage.module.scss';
-import { useEffect, useMemo, useState } from 'react';
-import { getImages } from '@/services/getImages';
-import { NasaImageType } from '@/types/NasaImage';
-import NasaImage from '@/components/NasaImage';
-import debounce from 'lodash.debounce';
+import styles from "./SearchPage.module.scss";
+import { useEffect, useReducer, useState } from "react";
+import { getImages } from "@/services/getImages";
+import { NasaImageType } from "@/types/NasaImage";
+import NasaImage from "@/components/NasaImage";
+import debounce from "lodash.debounce";
+
+type SearchParams = {
+  searchTerm: string;
+  startYear: string;
+  endYear: string;
+};
+
+const formReducer = (
+  state: SearchParams,
+  action: { type: string; field: string; payload: string }
+) => {
+  switch (action.type) {
+    case "HandleInputText": {
+      return {
+        ...state,
+        [action.field]: action.payload,
+      };
+    }
+
+    default:
+      return state;
+  }
+};
+
+const initialState: SearchParams = {
+  searchTerm: "",
+  startYear: "",
+  endYear: "",
+};
 
 const SearchPage = () => {
-  const [images, setImages] = useState<NasaImageType[]>();
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [images, setImages] = useState<NasaImageType[]>([]);
+
+  const [formState, dispatch] = useReducer(formReducer, initialState);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      type: "HandleInputText",
+      field: e.target.name,
+      payload: e.target.value,
+    });
+  };
 
   useEffect(() => {
-    if (!searchTerm) {
+    if (formState.searchTerm) {
       setImages([]);
       return;
     }
+  }, [formState.searchTerm]);
 
-    getImages(searchTerm, 1991, 2006)
+  const search = debounce(() => {
+    const params = {
+      q: formState.searchTerm,
+      page_size: 10,
+    };
+
+    getImages(params)
       .then((res) => {
+        console.log(res);
         setImages(res.collection.items);
       })
       .catch((err) => {
         // TODO Add some error mechanism
         console.log(err);
       });
-  }, [searchTerm]);
-
-  // Stop search from running when we unmount this component, just in case
-  useEffect(() => {
-    return () => {
-      debouncedSearch.cancel();
-    };
-  });
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const debouncedSearch = useMemo(() => {
-    return debounce(handleChange, 500);
-  }, []);
+  }, 200);
 
   return (
     <div className={styles.SearchPage}>
       <div className={styles.inputWrapper}>
-        <input type="text" onChange={debouncedSearch} />
+        {/* TODO make a component out of this */}
+        <input
+          type="text"
+          name="searchTerm"
+          placeholder="Search term"
+          value={formState.searchTerm}
+          onChange={(e) => handleChange(e)}
+        />
+        <input
+          type="text"
+          placeholder="start year"
+          name="startYear"
+          value={formState.startYear}
+          onChange={(e) => handleChange(e)}
+        />
+        <input
+          type="text"
+          name="endYear"
+          placeholder="end year"
+          value={formState.endYear}
+          onChange={(e) => handleChange(e)}
+        />
+        <button onClick={search}>Search</button>
       </div>
 
       <div className={styles.imagesWrapper}>
-        {images?.map((image: NasaImageType) => (
-          <NasaImage image={image} key={image.data[0].nasa_id} />
-        ))}
+        {images.length > 0
+          ? images.map((image: NasaImageType) => (
+              <NasaImage image={image} key={image.data[0].nasa_id} />
+            ))
+          : "No results found"}
       </div>
     </div>
   );

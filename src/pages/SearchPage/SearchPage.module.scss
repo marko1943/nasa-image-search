@@ -1,13 +1,14 @@
 .SearchPage {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   height: 100%;
 
   .imagesWrapper {
     display: grid;
+    justify-items: center;
     gap: 1px;
     grid-template-columns: repeat(2, 1fr);
   }
-
 }
