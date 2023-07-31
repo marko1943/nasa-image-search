@@ -21,4 +21,6 @@ Tested/Created with Node v20.3.0
 
 - CSS theming
 - Mock api calls with Jest
+- Add basic snapshot tests for pages; i.e. hitting Search renders images, clicking on image redirects to new route;
+- new route shows image with specific data
 - Lazy load images, eg 20 by 20
