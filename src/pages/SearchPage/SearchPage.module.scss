@@ -8,7 +8,15 @@
   .imagesWrapper {
     display: grid;
     justify-items: center;
-    gap: 1px;
+    gap: 1rem;
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .inputWrapper {
+    display: flex;
+  }
+
+  .error {
+    color: red;
   }
 }

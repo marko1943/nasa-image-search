@@ -1,9 +1,10 @@
 import styles from "./SearchPage.module.scss";
 import { useEffect, useReducer, useState } from "react";
-import { getImages } from "@/services/getImages";
+import { Params, getImages } from "@/services/getImages";
 import { NasaImageType } from "@/types/NasaImage";
 import NasaImage from "@/components/NasaImage";
 import debounce from "lodash.debounce";
+import CustomInput from "@/components/CustomInput/CustomInput";
 
 type SearchParams = {
   searchTerm: string;
@@ -36,7 +37,8 @@ const initialState: SearchParams = {
 
 const SearchPage = () => {
   const [images, setImages] = useState<NasaImageType[]>([]);
-
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [formState, dispatch] = useReducer(formReducer, initialState);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,63 +50,72 @@ const SearchPage = () => {
   };
 
   useEffect(() => {
-    if (formState.searchTerm) {
+    if (!formState.searchTerm) {
       setImages([]);
-      return;
     }
   }, [formState.searchTerm]);
 
   const search = debounce(() => {
-    const params = {
+    const params: Params = {
       q: formState.searchTerm,
-      page_size: 10,
+      page_size: 50,
     };
+
+    if (formState.startYear) params.year_start = formState.startYear;
+    if (formState.endYear) params.year_end = formState.endYear;
+
+    setLoading(true);
 
     getImages(params)
       .then((res) => {
-        console.log(res);
         setImages(res.collection.items);
       })
       .catch((err) => {
-        // TODO Add some error mechanism
-        console.log(err);
-      });
+        setError(err);
+      })
+      .finally(() => setLoading(false));
   }, 200);
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") search();
+  };
 
   return (
     <div className={styles.SearchPage}>
       <div className={styles.inputWrapper}>
-        {/* TODO make a component out of this */}
-        <input
+        <CustomInput
           type="text"
           name="searchTerm"
-          placeholder="Search term"
+          placeholder="search term"
           value={formState.searchTerm}
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
+          onKeyDown={handleKeyPress}
         />
-        <input
-          type="text"
+        <CustomInput
+          type="number"
           placeholder="start year"
           name="startYear"
           value={formState.startYear}
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
+          onKeyDown={handleKeyPress}
         />
-        <input
-          type="text"
+        <CustomInput
+          type="number"
           name="endYear"
           placeholder="end year"
           value={formState.endYear}
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
+          onKeyDown={handleKeyPress}
         />
         <button onClick={search}>Search</button>
       </div>
 
       <div className={styles.imagesWrapper}>
-        {images.length > 0
-          ? images.map((image: NasaImageType) => (
-              <NasaImage image={image} key={image.data[0].nasa_id} />
-            ))
-          : "No results found"}
+        {loading && "Loading..."}
+        {images.map((image: NasaImageType) => (
+          <NasaImage image={image} key={image.data[0].nasa_id} />
+        ))}
+        {error && <div className={styles.error}>{error}</div>}
       </div>
     </div>
   );
