@@ -1,10 +1,11 @@
 import styles from "./SearchPage.module.scss";
 import { useEffect, useReducer, useState } from "react";
-import { Params, getImages } from "@/services/getImages";
+import { getImages } from "@/services/getImages";
 import { NasaImageType } from "@/types/NasaImage";
 import NasaImage from "@/components/NasaImage";
 import debounce from "lodash.debounce";
 import CustomInput from "@/components/CustomInput/CustomInput";
+import { APISearchParams } from "@/types/APISearchParams";
 
 type SearchParams = {
   searchTerm: string;
@@ -56,7 +57,7 @@ const SearchPage = () => {
   }, [formState.searchTerm]);
 
   const search = debounce(() => {
-    const params: Params = {
+    const params: APISearchParams = {
       q: formState.searchTerm,
       page_size: 50,
     };
