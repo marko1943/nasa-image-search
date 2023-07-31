@@ -15,6 +15,7 @@ type Data = {
   nasa_id: string;
   secondary_creator: string;
   title: string;
+  location: string;
 };
 
 export type NasaImageType = {
