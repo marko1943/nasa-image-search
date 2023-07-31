@@ -1,6 +1,6 @@
-# Vite React app starter project.
+# Nasa Image Search
 
-Empty React starter project.
+Searches images on NASA API
 
 - Bundled with Vite. Yarn as a package manager.
 - Uses CSS modules.
@@ -11,12 +11,14 @@ Tested/Created with Node v20.3.0
 
 ## How to run
 
-`cd vite-react-starter`
+`cd nasa-image-search`
 
 `yarn`
 
 `yarn run dev`
 
-## TODO
+## Would TODO eventually
 
 - CSS theming
+- Mock api calls with Jest
+- Lazy load images, eg 20 by 20

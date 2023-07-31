@@ -70,9 +70,11 @@ const SearchPage = () => {
     getImages(params)
       .then((res) => {
         setImages(res.collection.items);
+        setError("");
       })
       .catch((err) => {
-        setError(err);
+        setError(err.response.data.reason);
+        setImages([]);
       })
       .finally(() => setLoading(false));
   }, 200);
