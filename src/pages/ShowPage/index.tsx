@@ -12,6 +12,7 @@ type CollectionItem = {
 const ShowPage = () => {
   const { id } = useParams();
   const [image, setImage] = useState<NasaImageType>();
+  const [error, setError] = useState("");
   const [collection, setCollection] = useState<CollectionItem[]>([]);
 
   const location = useLocation();
@@ -24,6 +25,8 @@ const ShowPage = () => {
         setCollection(res.collection.items);
       })
       .catch((err) => {
+        setError(err.response.data.reason || "Error");
+        setCollection([]);
         console.log(err);
       });
   }, [location.state, id]);
@@ -59,6 +62,7 @@ const ShowPage = () => {
           <img src={collection[0].href} alt="Collection image" />
         )}
       </div>
+      {error && <div className={styles.error}>{error}</div>}
     </div>
   );
 };

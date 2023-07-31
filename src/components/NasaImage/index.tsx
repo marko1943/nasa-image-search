@@ -1,8 +1,5 @@
 import { NasaImageType } from "@/types/NasaImage";
 
-// Each search result item should include a thumbnail, title, location, and photographer's
-// name.
-
 import styles from "./NasaImage.module.scss";
 import { Link } from "react-router-dom";
 

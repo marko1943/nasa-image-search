@@ -73,7 +73,7 @@ const SearchPage = () => {
         setError("");
       })
       .catch((err) => {
-        setError(err.response.data.reason);
+        setError(err.response.data.reason || "Error");
         setImages([]);
       })
       .finally(() => setLoading(false));
