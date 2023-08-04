@@ -9,12 +9,10 @@ export default defineConfig({
     port: 3000,
     open: true,
   },
-  root: "src",
   build: {
     emptyOutDir: true,
-    outDir: "../build",
+    outDir: "./build",
   },
-  base: "/react-vite-starter/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
