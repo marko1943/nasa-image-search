@@ -1,6 +1,6 @@
 # Nasa Image Search
 
-Searche images with NASA API
+Search images with NASA API
 
 - Bundled with Vite. Yarn as a package manager.
 - Uses CSS modules.
@@ -25,3 +25,7 @@ Tested/Created with Node v20.3.0
   I tried to add Jest to Vite but doesn't seem to be working as expected and at this point I have no time to try other
   testing lib or move to CRA/Webpack.
 - Lazy load images, eg 20 by 20
+
+## Note
+
+You're on a `codekeepers` branch. Remain there to test this. Main branch is just a skeleton i use.
