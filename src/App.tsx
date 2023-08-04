@@ -17,7 +17,9 @@ const router = createBrowserRouter([
     path: "/:id",
     element: <ShowPage />,
   },
-]);
+], {
+  basename: "/react-vite-starter"
+});
 
 function App() {
   return (
