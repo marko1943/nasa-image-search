@@ -20,11 +20,15 @@ Tested/Created with Node v20.3.0
 `yarn run dev`
 
 ## Would TODO
-
+Why would anyone want to use this? Oh well
+Would be cool to add:
+- Loading skeleton; make sure not to have CLS
+- Accessibility?
 - CSS theming
 - Add basic snapshot tests for pages; i.e. hitting Search renders images, clicking on image redirects to new route; test show page render, etc...
 - Mock API calls with Jest
 - Lazy load images, eg 20 by 20
+- Dependanbot to auto-update packages
 
 ## Note
 
