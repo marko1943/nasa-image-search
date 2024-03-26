@@ -9,7 +9,7 @@ export default defineConfig({
     port: 3000,
     open: true,
   },
-  base: "/react-vite-starter/",
+  base: "/nasa-image-search/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

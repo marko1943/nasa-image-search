@@ -7,19 +7,22 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import classes from "./App.module.scss";
 import ShowPage from "./pages/ShowPage";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <SearchPage />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/:id",
+      element: <ShowPage />,
+    },
+  ],
   {
-    path: "/",
-    element: <SearchPage />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/:id",
-    element: <ShowPage />,
-  },
-], {
-  basename: "/react-vite-starter"
-});
+    basename: "/nasa-image-search",
+  }
+);
 
 function App() {
   return (

@@ -1,11 +1,8 @@
 # Nasa Image Search
 
-Deployed via GitHub actions on https://marko1943.github.io/react-vite-starter/ 
-
+Deployed via GitHub actions on https://marko1943.github.io/nasa-image-search/
 
 Search images with NASA API
-
-
 
 - Bundled with Vite. Yarn as a package manager.
 - Uses CSS modules.
